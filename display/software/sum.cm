@@ -1,0 +1,20 @@
+int a[2];
+int x;
+
+int add2(int x, int y)
+{
+    return x + y;
+}
+
+int add(int x, int y)
+{
+    if (x >= y)
+        return add2(0, x);
+    else
+        return x + add(x+1, y);
+}
+
+void main(void)
+{
+    output(add(input(), input()));
+}

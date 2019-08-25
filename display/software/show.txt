@@ -1,0 +1,36 @@
+ifconfig dmfe0 169.254.239.111
+load tftp://169.254.239.110/vmlinux-display
+g console=ttyS0,57600 rdinit=sbin/init 
+
+ifconfig eth0 169.254.239.111
+
+tftp -g -r  cm  169.254.239.110
+tftp -g -r  tm  169.254.239.110
+tftp -g -r  sum.cm  169.254.239.110
+tftp -g -r  gcd.cm  169.254.239.110
+tftp -g -r fact.cm  169.254.239.110
+chmod +x cm
+chmod +x tm
+
+tftp -g -r  music  169.254.239.110
+tftp -g -r  maze 169.254.239.110
+tftp -g -r  monitor  169.254.239.110
+tftp -g -r  lcd_clear 169.254.239.110
+tftp -g -r  display_bg 169.254.239.110
+tftp -g -r  gpio_control  169.254.239.110
+tftp -g -r  1.bin 169.254.239.110
+tftp -g -r  lemon.mmidi 169.254.239.110
+
+chmod +x music
+chmod +x maze
+chmod +x monitor
+chmod +x lcd_clear
+chmod +x display_bg
+chmod +x gpio_control
+
+./cm -f sum.cm
+./tm sum.cm.tm
+./cm -f gcd.cm
+./tm gcd.cm.tm
+./cm -f fact.cm
+./tm fact.cm.tm

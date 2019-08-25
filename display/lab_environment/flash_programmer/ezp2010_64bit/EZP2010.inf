@@ -1,0 +1,81 @@
+; Silabs USBXpress Driver
+; Copyright (c) 2010, Silicon Laboratories
+
+
+[Version]
+Signature=$WINDOWS NT$
+Class=USB
+ClassGUID={36fc9e60-c465-11cf-8056-444553540000}
+Provider=%MFGNAME%
+DriverVer=07/14/2010,3.3
+CatalogFile=SiUSBXp.cat
+
+[Manufacturer]
+%MFGNAME%=DeviceList, NTamd64
+
+[DestinationDirs]
+DefaultDestDir=10		;System32\Drivers
+DriverCopyFiles=10		,System32\Drivers
+
+[SourceDisksNames.x86]
+1=%INSTDISK%,,,
+
+[SourceDisksFiles.x86]
+SiUSBXp.sys=1,\x86
+SiLib.sys=1,\x86
+
+[SourceDisksNames.amd64]
+1=%INSTDISK%,,,
+
+[SourceDisksFiles.amd64]
+SiUSBXp.sys=1,\x64
+SiLib.sys=1,\x64
+
+[DeviceList]
+%DRAVERNAME%=DriverInstall,USB\VID_10C4&PID_F5A0
+
+[DeviceList.NTamd64]
+%DRAVERNAME%=DriverInstall,USB\VID_10C4&PID_F5A0
+
+[ControlFlags]
+ExcludeFromSelect=*
+
+;------------------------------------------------------------------------------
+;  Windows 2000 Sections
+;------------------------------------------------------------------------------
+
+
+[DriverInstall.NT]
+CopyFiles=DriverCopyFiles
+
+[DriverCopyFiles]
+SiUSBXp.sys,,,2
+SiLib.sys,,,2
+
+[DriverInstall.NT.Services]
+AddService=SIUSBXP,2,DriverService
+
+[DriverService]
+ServiceType=1
+StartType=3
+ErrorControl=1
+ServiceBinary=%10%\system32\drivers\SiUSBXp.sys
+
+[DriverInstall.nt.hw]
+AddReg=DriverHwAddReg
+
+[DriverHwAddReg]
+HKR,,FriendlyName,,%DRAVERNAME%
+
+
+;------------------------------------------------------------------------------
+;  String Definitions
+;------------------------------------------------------------------------------
+
+[Strings]
+MFGNAME="Silicon Labs Software"
+INSTDISK="Silicon Labs USBXpress Driver Installation Disc"
+DESCRIPTION="USBXpress Device"
+DRAVERNAME="EZP2010"
+
+
